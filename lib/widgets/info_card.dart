@@ -1,3 +1,4 @@
+import 'package:event_finder/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
@@ -16,15 +17,20 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: fullWidth ? double.infinity : null,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: isDark
+                ? Colors.black.withOpacity(0.2)
+                : Colors.black.withOpacity(0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -35,10 +41,12 @@ class InfoCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: const Color(0xFFEEF2FF),
+              color: isDark
+                  ? AppColors.accentSoftDark
+                  : AppColors.accentSoftLight,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, size: 16, color: const Color(0xFF4F46E5)),
+            child: Icon(icon, size: 16, color: cs.primary),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -47,9 +55,11 @@ class InfoCard extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
-                    color: Color(0xFF9CA3AF),
+                    color: isDark
+                        ? AppColors.hintDark
+                        : AppColors.hintLight,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -58,9 +68,9 @@ class InfoCard extends StatelessWidget {
                   value,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
-                    color: Color(0xFF1A1A2E),
+                    color: cs.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

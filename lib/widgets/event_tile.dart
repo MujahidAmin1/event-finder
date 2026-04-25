@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_finder/models/event.dart';
+import 'package:event_finder/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class EventTile extends StatelessWidget {
@@ -8,14 +9,19 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
+            color: isDark
+                ? Colors.black.withOpacity(0.25)
+                : Colors.black.withOpacity(0.06),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -33,11 +39,20 @@ class EventTile extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: event.imageUrl,
                   fit: BoxFit.cover,
-                  placeholder: (_, __) => Container(color: Colors.grey.shade100),
+                  placeholder: (_, __) => Container(
+                    color: isDark
+                        ? AppColors.surfaceDark
+                        : Colors.grey.shade100,
+                  ),
                   errorWidget: (_, __, ___) => Container(
-                    color: Colors.grey.shade200,
-                    child: const Icon(Icons.image_not_supported_outlined,
-                        size: 40, color: Colors.grey),
+                    color: isDark
+                        ? AppColors.surfaceDark
+                        : Colors.grey.shade200,
+                    child: Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 40,
+                      color: isDark ? AppColors.hintDark : Colors.grey,
+                    ),
                   ),
                 ),
               ),
@@ -77,10 +92,10 @@ class EventTile extends StatelessWidget {
                   event.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1A1A2E),
+                    color: cs.onSurface,
                     height: 1.3,
                   ),
                 ),
@@ -89,26 +104,36 @@ class EventTile extends StatelessWidget {
                 // Date & time row
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today_outlined,
-                        size: 14, color: Color(0xFF6B7280)),
+                    Icon(Icons.calendar_today_outlined,
+                        size: 14,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight),
                     const SizedBox(width: 5),
                     Text(
                       event.date,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
-                        color: Color(0xFF6B7280),
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(width: 12),
-                    const Icon(Icons.access_time_outlined,
-                        size: 14, color: Color(0xFF6B7280)),
+                    Icon(Icons.access_time_outlined,
+                        size: 14,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight),
                     const SizedBox(width: 5),
                     Text(
                       event.time,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13,
-                        color: Color(0xFF6B7280),
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -119,17 +144,22 @@ class EventTile extends StatelessWidget {
                 // Location & distance row
                 Row(
                   children: [
-                    const Icon(Icons.location_on_outlined,
-                        size: 14, color: Color(0xFF6B7280)),
+                    Icon(Icons.location_on_outlined,
+                        size: 14,
+                        color: isDark
+                            ? AppColors.textSecondaryDark
+                            : AppColors.textSecondaryLight),
                     const SizedBox(width: 5),
                     Expanded(
                       child: Text(
                         event.location,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
-                          color: Color(0xFF6B7280),
+                          color: isDark
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -139,14 +169,18 @@ class EventTile extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF3F4F6),
+                        color: isDark
+                            ? AppColors.distanceBgDark
+                            : AppColors.distanceBgLight,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         event.distance,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF374151),
+                          color: isDark
+                              ? AppColors.textPrimaryDark
+                              : AppColors.labelLight,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

@@ -1,6 +1,6 @@
 # Event Finder
 
-A Flutter app that lets users browse and explore local events fetched from a remote API. Tap any event to view its full details including date, time, location, and description.
+A Flutter app that lets users browse, search, and explore local events fetched from a remote API.
 
 ---
 
@@ -12,11 +12,14 @@ A Flutter app that lets users browse and explore local events fetched from a rem
 
 ## Features
 
+- Splash/onboarding screen with auto-navigation after 2.5 seconds
 - Browse a list of events fetched from a live REST API
-- Cached network images for smooth, efficient loading
+- Pull to refresh to re-fetch events
+- Dedicated search screen — search by event title on submit
 - Event detail screen with date, time, location, and description
-- Clean card-based UI with category badges
-- Error states and loading indicators
+- Add event form with title, category dropdown, date & time picker, and location
+- Flushbar feedback on ticket booking and event creation
+- Cached network images for smooth, efficient loading
 
 ---
 
@@ -26,6 +29,7 @@ A Flutter app that lets users browse and explore local events fetched from a rem
 |---|---|
 | HTTP client | [dio](https://pub.dev/packages/dio) |
 | Image caching | [cached_network_image](https://pub.dev/packages/cached_network_image) |
+| In-app notifications | [another_flushbar](https://pub.dev/packages/another_flushbar) |
 | Localization utils | [intl](https://pub.dev/packages/intl) |
 
 ---
@@ -34,17 +38,20 @@ A Flutter app that lets users browse and explore local events fetched from a rem
 
 ```
 lib/
-├── main.dart               # App entry point
+├── main.dart                  # App entry point
 ├── models/
-│   └── event.dart          # Event data model
+│   └── event.dart             # Event data model
 ├── screens/
-│   ├── homescreen.dart     # Event list screen
-│   └── detail_screen.dart  # Event detail screen
+│   ├── onboarding_screen.dart # Splash screen
+│   ├── homescreen.dart        # Event list with pull-to-refresh
+│   ├── search_screen.dart     # Dedicated search screen
+│   ├── detail_screen.dart     # Event detail screen
+│   └── add_event_screen.dart  # Add event form
 ├── services/
-│   └── event_service.dart  # API calls via Dio
+│   └── event_service.dart     # API calls via Dio
 └── widgets/
-    ├── event_tile.dart     # Event card widget
-    └── info_card.dart      # Detail info row widget
+    ├── event_tile.dart        # Event card widget
+    └── info_card.dart         # Detail info row widget
 ```
 
 ---
@@ -54,10 +61,7 @@ lib/
 **Prerequisites:** Flutter SDK `^3.11.4`
 
 ```bash
-# Install dependencies
 flutter pub get
-
-# Run the app
 flutter run
 ```
 

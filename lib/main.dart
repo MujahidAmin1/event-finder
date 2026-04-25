@@ -1,5 +1,11 @@
-import 'package:event_finder/screens/homescreen.dart';
+import 'package:event_finder/screens/onboarding_screen.dart';
+import 'package:event_finder/themes/app_themes.dart';
+import 'package:event_finder/themes/theme_notifier.dart';
 import 'package:flutter/material.dart';
+
+/// Global key so any widget can access the notifier without
+/// needing InheritedWidget / Provider package overhead.
+final ThemeNotifier themeNotifier = ThemeNotifier();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,12 +17,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.blueAccent),
-      ),
-      title: 'Smart Toolkit',
-      home: const HomeScreen(),
+    return AnimatedBuilder(
+      animation: themeNotifier,
+      builder: (context, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Event Finder',
+          theme: AppThemes.light,
+          darkTheme: AppThemes.dark,
+          themeMode: themeNotifier.mode,
+          home: const OnboardingScreen(),
+        );
+      },
     );
   }
 }
