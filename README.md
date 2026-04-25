@@ -19,7 +19,8 @@ A Flutter app that lets users browse, search, and explore local events fetched f
 - Add event form with title, category dropdown, date & time picker, and location
 - Flushbar feedback on ticket booking and event creation
 - Cached network images for smooth, efficient loading
-- Dark and Light theme implemented
+- Dark and Light theme implemented across all screens
+- Smooth animations implemented
 
 ---
 
