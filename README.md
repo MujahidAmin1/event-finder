@@ -14,12 +14,12 @@ A Flutter app that lets users browse, search, and explore local events fetched f
 
 - Splash/onboarding screen with auto-navigation after 2.5 seconds
 - Browse a list of events fetched from a live REST API
-- Pull to refresh to re-fetch events
 - Dedicated search screen — search by event title on submit
 - Event detail screen with date, time, location, and description
 - Add event form with title, category dropdown, date & time picker, and location
 - Flushbar feedback on ticket booking and event creation
 - Cached network images for smooth, efficient loading
+- Dark and Light theme implemented
 
 ---
 
